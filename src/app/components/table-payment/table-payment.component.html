@@ -1,0 +1,107 @@
+<ng-template #update let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Update Payment</h4>
+        <button type="button" class="close  btn-danger" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="form.updateData" (ngSubmit)="updatePayment()" action="">
+            <div class="row">
+                <div class="form-group col-md-10">
+                    <label for="paymentDetailId">Payment Detail Id</label>
+                    <input value="Payment Detail Id"
+                    [class.invalid]="paymentDetailId && paymentDetailId.touched && paymentDetailId.invalid" type="text"
+                    formControlName="paymentDetailId" id="paymentDetailId" class="form-control form-control">
+                </div>
+                <div class="form-group col-md-10">
+                    <label for="cardOwnerName">Card Owner Name</label>
+                    <input value="Card Owner Name"
+                    [class.invalid]="cardOwnerName && cardOwnerName.touched && cardOwnerName.invalid" type="text"
+                    formControlName="cardOwnerName" id="cardOwnerName" class="form-control form-control">
+                    <span style="color: red;" *ngIf="cardOwnerName && cardOwnerName.touched && cardOwnerName.invalid">
+                    Please card owner name min 5 length
+                    </span>
+                </div>
+                <div class="form-group col-md-10">
+                    <label for="cardNumber">Card Number</label>
+                    <input value="Card Number"
+                    [class.invalid]="cardNumber && cardNumber.touched && cardNumber.invalid" type="text"
+                    formControlName="cardNumber" id="cardNumber" class="form-control form-control">
+                    <span style="color: red;" *ngIf="cardNumber && cardNumber.touched && cardNumber.invalid">
+                    Please card owner name min 16 length
+                    </span>
+                </div>
+                <div class="form-group col-md-5">
+                    <label for="securityCode">Security Code</label>
+                    <input value="Security Code"
+                    [class.invalid]="securityCode && securityCode.touched && securityCode.invalid" type="password"
+                    formControlName="securityCode" id="securityCode" class="form-control form-control">
+                    <span style="color: red;" *ngIf="securityCode && securityCode.touched && securityCode.invalid">
+                    Please input security code 
+                    </span>
+                </div>
+                <div class="form-group col-md-5">
+                    <label for="expirationDate">Expiration Date</label>
+                    <input value="Expiration Date"
+                    [class.invalid]="expirationDate && expirationDate.touched && expirationDate.invalid" type="date" 
+                    formControlName="expirationDate" id="expirationDate" class="form-control form-control">
+                    <span style="color: red;" *ngIf="expirationDate && expirationDate.touched && expirationDate.invalid">
+                    Please input expiration date 
+                    </span>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" (click)="modal.close ('Save click')"
+                [disabled]="form.updateData.invalid">Update Payment</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+<app-home (newTaskEvent) = "refreshTable()"></app-home>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Payment Id</th>
+                <th scope="col">Card Owner Name</th>
+                <th scope="col">Card Number</th>
+                <th scope="col">Security Code</th>
+                <th scope="col">Expiration Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let payment of payments">
+                <td>{{payment.paymentDetailId}}</td>
+                <td>{{payment.cardOwnerName}}</td>
+                <td>{{payment.cardNumber}}</td>
+                <td>{{payment.securityCode}}</td>
+                <td>{{payment.expirationDate | date: "yyyy"}}</td>
+                <td>
+                    <button (click)="open(update, payment)" class="btn btn-outline-warning mx-2">Edit</button>
+                    <button (click)="open(delete, payment)" class="btn btn-outline-danger">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<ng-template #delete let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basil-title">Delete Payment</h4>
+    </div>
+    <form>
+        <div class="modal-body">
+            <p>Are you sure you want to delete '{{currentPayment.cardOwnerName}}'?</p>
+            <p class="text-warning"><small>This action cannot be undone.</small></p>
+        </div>
+        <div class="modal-footer">
+            <input type="button" class="btn btn-outline-warning" (click)="modal.dismiss('Cross click')" value="Cancel">
+            <input type="button" class="btn btn-outline-danger" (click)="deletePayment(currentPayment.paymentDetailId)" value="Delete">
+        </div>
+    </form>
+</ng-template>
+

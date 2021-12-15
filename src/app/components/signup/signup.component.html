@@ -1,0 +1,33 @@
+<div class="container mt-3">
+  <h2>Sign Up!</h2>
+  <form [formGroup]="form.inputData" (ngSubmit)="register()">
+      <div class="mb-3 mt-3">
+        <label>Username</label>
+        <input type="text" class="form-control" formControlName="username" required name="username" id="username" placeholder="Enter username">
+        <span
+          style="color: red"
+          *ngIf="username && username.touched && username.invalid">
+          You must input your username minimum of 5 characters.
+        </span>
+      </div>
+      <div class="mb-3">
+        <label>Email</label>
+        <input type="text" class="form-control" formControlName="email" required name="email" id="email" placeholder="Enter email">
+        <span
+          style="color: red"
+          *ngIf="email && email.touched && email.invalid">
+          You must input a valid email.
+        </span>
+      </div>
+      <div class="mb-3">
+        <label>Password</label>
+        <input type="password" class="form-control" formControlName="password" required name="password" id="password" placeholder="Enter password">
+        <span
+          style="color: red"
+          *ngIf="password && password.touched && password.invalid">
+          Your password must have a length of 5 characters.
+        </span>
+      </div>
+      <button type="submit" class="btn btn-outline-dark" [routerLink]="['/home']" routerLinkActive="router-link-active" >Sign up</button>
+    </form>
+  </div>

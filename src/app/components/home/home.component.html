@@ -1,0 +1,62 @@
+<br>
+<div class="container">
+    <button (click)="open(content)" type="submit" class="btn btn-outline-dark">
+    Add New Payment
+    </button>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Add New Payment</h4>
+        <button aria-hidden="true" class="close btn-danger" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            &times;
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="form.inputData" (ngSubmit)="addNewPayment()" action="">
+            <div class="row">
+                <div class="form-group col-md-10">
+                    <label for="cardOwnerName">Card Owner Name</label>
+                    <input value="Card Owner Name"
+                    [class.invalid]="cardOwnerName && cardOwnerName.touched && cardOwnerName.invalid" type="text"
+                    formControlName="cardOwnerName" id="cardOwnerName" class="form-control form-control">
+                    <span style="color: red;" *ngIf="cardOwnerName && cardOwnerName.touched && cardOwnerName.invalid">
+                    Please card owner name min 5 lenght 
+                    </span>
+                </div>
+                <div class="form-group col-md-10">
+                    <label for="cardNumber">Card Number</label>
+                    <input value="Card Number"
+                    [class.invalid]="cardNumber && cardNumber.touched && cardNumber.invalid" type="text"
+                    formControlName="cardNumber" id="cardNumber" class="form-control form-control">
+                    <span style="color: red;" *ngIf="cardNumber && cardNumber.touched && cardNumber.invalid">
+                    Please card owner name min 16 lenght 
+                    </span>
+                </div>
+                <div class="form-group col-md-5">
+                    <label for="securityCode">Security Code</label>
+                    <input value="Security Code"
+                    [class.invalid]="securityCode && securityCode.touched && securityCode.invalid" type="password"
+                    formControlName="securityCode" id="securityCode" class="form-control form-control">
+                    <span style="color: red;" *ngIf="securityCode && securityCode.touched && securityCode.invalid">
+                    Please input security code 
+                    </span>
+                </div>
+                <div class="form-group col-md-5">
+                    <label for="expirationDate">Expiration Date</label>
+                    <input value="Expiration Date"
+                    [class.invalid]="expirationDate && expirationDate.touched && expirationDate.invalid" type="date"
+                    formControlName="expirationDate" id="expirationDate" class="form-control form-control">
+                    <span style="color: red;" *ngIf="expirationDate && expirationDate.touched && expirationDate.invalid">
+                    Please input expiration date 
+                    </span>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <button type="submit" class="btn btn-outline-dark" (click)="modal.close ('Save click')"
+                [disabled]="form.inputData.invalid">Add Payment</button>
+            </div>
+        </form>
+    </div>
+</ng-template>

@@ -1,0 +1,26 @@
+  <div class="container mt-3">
+    <h2>Please Sign In</h2>
+    <p>If you dont have account, please <a [routerLink]="['/signup']" routerLinkActive="router-link-active" >signup</a></p>
+  <form [formGroup]="form.inputData" (ngSubmit)="signIn()">
+    <div class="row">
+    <div class="col">
+      <input type="email" class="form-control" formControlName="email" required name="email" id="email" placeholder="Enter Email">
+      <span
+        style="color: red"
+        *ngIf="email && email.touched && email.invalid">
+        You must input a valid email.
+      </span>
+      </div>
+    <div class="col">
+      <input type="password" class="form-control" formControlName="password" required name="password" id="password" placeholder="Enter Password">
+      <span
+        style="color: red"
+        *ngIf="password && password.touched && password.invalid">
+        Your password must have a length of 5 characters.
+      </span>
+      </div>
+      </div>
+      <br>
+    <button type="submit" class="btn btn-outline-dark">Sign in</button>
+  </form>
+</div>
